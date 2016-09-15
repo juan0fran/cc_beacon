@@ -565,6 +565,7 @@ int main (int argc, char **argv)
 
     init_radio_parms(&radio_parameters, &arguments);
     ret = init_radio(&radio_parameters, &spi_parameters, &arguments);
+    init_radio_int(&spi_parameters, &arguments);
 
     if (ret != 0)
     {

@@ -201,7 +201,6 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
     verbprintf(0, "Waiting for a connection\n");
 
     set_serial_parameters(serial_parms, arguments);
-    init_radio_int(spi_parms, arguments);
     memset(rx_buffer, 0, bufsize);
     memset(tx_buffer, 0, bufsize);
     radio_flush_fifos(spi_parms);
