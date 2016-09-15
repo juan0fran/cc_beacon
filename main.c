@@ -491,10 +491,10 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
             break;
         case 'x':
             arguments->trx = strtol(arg, &end, 10);
-            if (trx > 0){
+            if (arguments->trx > 0){
                 arguments->trx = 1;
             }
-            if (trx < 0){
+            if (arguments->trx < 0){
                 argp_usage(state);
             }
             break;
