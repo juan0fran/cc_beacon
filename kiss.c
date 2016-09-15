@@ -234,7 +234,7 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
             radio_wait_a_bit(32);
         }
         if (arguments->trx == 1){
-            tx_count = read_serial(serial_parms, &tx_buffer[], bufsize);
+            tx_count = read_serial(serial_parms, &tx_buffer[0], bufsize);
             if (tx_count > 0) // Send bytes received on serial to air 
             {
                 radio_wait_free();            // Make sure no radio operation is in progress
