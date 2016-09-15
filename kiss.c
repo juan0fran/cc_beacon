@@ -223,6 +223,9 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
             rx_count = radio_receive_packet(spi_parms, arguments, &rx_buffer[0]); // check if anything was received on radio link
             /* poll the serial device to remove garbage and check for end of pipe */
             if (check_serial(serial_parms) <= 0){
+                radio_wait_free();            // Make sure no radio operation is in progress
+                radio_turn_idle(spi_parms);   // Inhibit radio operations (should be superfluous since both Tx and Rx turn to IDLE after a packet has been processed)
+                radio_flush_fifos(spi_parms); // Flush result of any Rx activity
                 verbprintf(0, "Something ocurred on the upper layer while writing, resetting device\n");
                 return;
             }
@@ -233,6 +236,9 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
                 verbprintf(2, "Received %d bytes\n", rx_count);
                 ret = write_serial(serial_parms, rx_buffer, rx_count);
                 if (ret <= 0){
+                    radio_wait_free();            // Make sure no radio operation is in progress
+                    radio_turn_idle(spi_parms);   // Inhibit radio operations (should be superfluous since both Tx and Rx turn to IDLE after a packet has been processed)
+                    radio_flush_fifos(spi_parms); // Flush result of any Rx activity
                     verbprintf(0, "Something ocurred on the upper layer while writing, resetting device\n");
                     return;
                 }
@@ -246,6 +252,9 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
         if (arguments->trx == 1){
             tx_count = read_serial(serial_parms, &tx_buffer[0], bufsize);
             if (tx_count <= 0){
+                radio_wait_free();            // Make sure no radio operation is in progress
+                radio_turn_idle(spi_parms);   // Inhibit radio operations (should be superfluous since both Tx and Rx turn to IDLE after a packet has been processed)
+                radio_flush_fifos(spi_parms); // Flush result of any Rx activity
                 verbprintf(0, "Something ocurred on the upper layer while reading, resetting device\n");
                 return;
             }
