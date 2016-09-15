@@ -109,7 +109,7 @@ static struct argp_option options[] = {
     {"tnc-switchover-delay",  304, "SWITCHOVER_DELAY_US", 0, "FUTUR USE: TNC switchover delay in microseconds (default: 0 inactive)"},
     {"gdo0", 'g', "GDO0_PIN", 4, "GDO0 pin from Wiring Pi"},
     {"gdo2", 'i', "GDO2_PIN", 5, "GDO2 pin from Wiring Pi"},
-    {"trx", 'x', "TRX_SELECTOR", "Select from TX (1) or RX (0)"},
+    {"trx", 'x', "TRX_SELECTOR", 0, "Select from TX (1) or RX (0)"},
     {0}
 };
 
