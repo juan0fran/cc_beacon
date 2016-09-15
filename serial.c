@@ -79,6 +79,25 @@ void set_serial_parameters(serial_t *serial_parameters, arguments_t *arguments)
 
 #define __USE_SOCAT__
 
+int check_serial(serial_t *serial_parameters)
+{
+    struct pollfd pfd;
+    int rv;
+    int len = 256;
+    char buf[256];
+    pfd.fd = serial_parameters->sock_fd;
+    pfd.events = POLLIN;
+    rv = poll(&pfd, 1, 0);
+    if (rv == -1){
+        perror("Poll error: ");
+        return -1;
+    }else if (rv == 0){
+        return 1;
+    }else{
+        return read(pfd.fd, buf, len);
+    }
+}
+
 int write_serial(serial_t *serial_parameters, char *msg, int msglen)
 // ------------------------------------------------------------------------------------------------
 {

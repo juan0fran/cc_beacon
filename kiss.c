@@ -222,6 +222,11 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
     {
         if (arguments->trx == 0){
             rx_count = radio_receive_packet(spi_parms, arguments, &rx_buffer[0]); // check if anything was received on radio link
+            /* poll the serial device to remove garbage and check for end of pipe */
+            if (check_serial(serial_parms) <= 0){
+                verbprintf(0, "Something ocurred on the upper layer while writing, resetting device\n");
+                return;
+            }
             if (rx_count > 0) // Send bytes received on air to serial
             {
                 radio_init_rx(spi_parms, arguments); // Init for new packet to receive Rx
