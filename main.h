@@ -101,6 +101,7 @@ typedef struct arguments_s {
     uint8_t      real_time;            // Engage so called "real time" scheduling
     int          gdo0;
     int          gdo2;
+    int          trx;
 } arguments_t;
 
 #endif
