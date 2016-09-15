@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/cc_beacon_iface.h
+stdint.h
+-
+
+/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/apps/example.c
+stdio.h
+-
+cc_beacon_iface.h
+-
+stdlib.h
+-
+
