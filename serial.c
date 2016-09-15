@@ -92,7 +92,7 @@ int write_serial(serial_t *serial_parameters, char *msg, int msglen)
         return write(serial_parameters->sock_fd, msg, len);
     }else{
         printf("Error writing\n");
-        exit(EXIT_FAILURE);
+        return 0;
     }
     #endif
 }
@@ -108,12 +108,13 @@ int read_serial(serial_t *serial_parameters, char *buf, int buflen)
     int readed;
     pfd.fd = serial_parameters->sock_fd;
     pfd.events = POLLIN;
-    rv = poll(&pfd, 1, 500); /* read without timeout */
+    rv = poll(&pfd, 1, -1); /* read without timeout */
     if (rv == -1){
         perror("Poll error: ");
-        exit(EXIT_FAILURE);
+        return -1;
     }else if (rv == 0){
-        return 0;
+        printf("Error reading\n");
+        return -1;
     }else{
         if (pfd.revents & POLLIN){
             #ifdef __USE_SOCAT__

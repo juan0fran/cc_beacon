@@ -604,8 +604,10 @@ int main (int argc, char **argv)
     }
     else
     {
-        kiss_init(&arguments);
-        kiss_run(&serial_parameters, &spi_parameters, &arguments);    
+        while(1){
+            kiss_init(&arguments);
+            kiss_run(&serial_parameters, &spi_parameters, &arguments);  
+        }
     }
 
     delete_args(&arguments);

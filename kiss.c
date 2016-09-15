@@ -198,13 +198,15 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
     uint64_t timestamp;
     struct timeval tp;  
 
+    verbprintf(0, "Waiting for a connection\n");
+
     set_serial_parameters(serial_parms, arguments);
     init_radio_int(spi_parms, arguments);
     memset(rx_buffer, 0, bufsize);
     memset(tx_buffer, 0, bufsize);
     radio_flush_fifos(spi_parms);
     
-    verbprintf(1, "Starting...\n");
+    verbprintf(1, "Connection done\n");
 
     force_mode = 1;
     rtx_toggle = 0;
@@ -226,6 +228,10 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
                 radio_turn_rx(spi_parms);   
                 verbprintf(2, "Received %d bytes\n", rx_count);
                 ret = write_serial(serial_parms, rx_buffer, rx_count);
+                if (ret <= 0){
+                    verbprintf(0, "Something ocurred on the upper layer while writing, resetting device\n");
+                    return;
+                }
                 verbprintf(2, "Sent %d bytes on serial\n", ret);
                 rx_count = 0;
                 rx_trigger = 0;
@@ -235,6 +241,10 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
         }
         if (arguments->trx == 1){
             tx_count = read_serial(serial_parms, &tx_buffer[0], bufsize);
+            if (tx_count <= 0){
+                verbprintf(0, "Something ocurred on the upper layer while reading, resetting device\n");
+                return;
+            }
             if (tx_count > 0) // Send bytes received on serial to air 
             {
                 radio_wait_free();            // Make sure no radio operation is in progress
