@@ -1,1 +1,1 @@
-/usr/bin/cc   -dynamiclib -Wl,-headerpad_max_install_names   -compatibility_version 1.0.0 -current_version 0.1.0 -o ../../lib/libcc_beacon_iface.0.1.dylib -install_name /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/lib/libcc_beacon_iface.1.dylib CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o  -L/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/lib 
+/usr/bin/cc  -fPIC    -shared -Wl,-soname,libcc_beacon_iface.so.1 -o ../../lib/libcc_beacon_iface.so.0.1 CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o  -L/home/cubecat/Escritorio/cc_beacon/cc1101_handler/lib 

@@ -3,4 +3,4 @@
 
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o
  ../include/cc_beacon_iface.h
- /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/src/cc_beacon_iface.c
+ /home/cubecat/Escritorio/cc_beacon/cc1101_handler/src/cc_beacon_iface.c

@@ -1,2 +1,2 @@
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example.dir
+/home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir
+/home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example.dir

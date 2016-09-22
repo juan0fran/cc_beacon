@@ -26,22 +26,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /opt/local/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler
+CMAKE_SOURCE_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build
+CMAKE_BINARY_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build
 
 # Include any dependencies generated for this target.
 include src/CMakeFiles/cc_beacon_iface.dir/depend.make
@@ -54,17 +51,17 @@ include src/CMakeFiles/cc_beacon_iface.dir/flags.make
 
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o: src/CMakeFiles/cc_beacon_iface.dir/flags.make
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o: ../src/cc_beacon_iface.c
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building C object src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o"
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o   -c /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/src/cc_beacon_iface.c
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -o CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o   -c /home/cubecat/Escritorio/cc_beacon/cc1101_handler/src/cc_beacon_iface.c
 
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i"
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/src/cc_beacon_iface.c > CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -E /home/cubecat/Escritorio/cc_beacon/cc1101_handler/src/cc_beacon_iface.c > CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i
 
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s"
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/src/cc_beacon_iface.c -o CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && /usr/bin/cc  $(C_DEFINES) $(C_FLAGS) -S /home/cubecat/Escritorio/cc_beacon/cc1101_handler/src/cc_beacon_iface.c -o CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s
 
 src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o.requires:
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o.requires
@@ -82,29 +79,29 @@ cc_beacon_iface_OBJECTS = \
 # External object files for target cc_beacon_iface
 cc_beacon_iface_EXTERNAL_OBJECTS =
 
-../lib/libcc_beacon_iface.0.1.dylib: src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o
-../lib/libcc_beacon_iface.0.1.dylib: src/CMakeFiles/cc_beacon_iface.dir/build.make
-../lib/libcc_beacon_iface.0.1.dylib: src/CMakeFiles/cc_beacon_iface.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C shared library ../../lib/libcc_beacon_iface.dylib"
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cc_beacon_iface.dir/link.txt --verbose=$(VERBOSE)
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -E cmake_symlink_library ../../lib/libcc_beacon_iface.0.1.dylib ../../lib/libcc_beacon_iface.1.dylib ../../lib/libcc_beacon_iface.dylib
+../lib/libcc_beacon_iface.so.0.1: src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o
+../lib/libcc_beacon_iface.so.0.1: src/CMakeFiles/cc_beacon_iface.dir/build.make
+../lib/libcc_beacon_iface.so.0.1: src/CMakeFiles/cc_beacon_iface.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking C shared library ../../lib/libcc_beacon_iface.so"
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cc_beacon_iface.dir/link.txt --verbose=$(VERBOSE)
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -E cmake_symlink_library ../../lib/libcc_beacon_iface.so.0.1 ../../lib/libcc_beacon_iface.so.1 ../../lib/libcc_beacon_iface.so
 
-../lib/libcc_beacon_iface.1.dylib: ../lib/libcc_beacon_iface.0.1.dylib
+../lib/libcc_beacon_iface.so.1: ../lib/libcc_beacon_iface.so.0.1
 
-../lib/libcc_beacon_iface.dylib: ../lib/libcc_beacon_iface.0.1.dylib
+../lib/libcc_beacon_iface.so: ../lib/libcc_beacon_iface.so.0.1
 
 # Rule to build all files generated by this target.
-src/CMakeFiles/cc_beacon_iface.dir/build: ../lib/libcc_beacon_iface.dylib
+src/CMakeFiles/cc_beacon_iface.dir/build: ../lib/libcc_beacon_iface.so
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/build
 
 src/CMakeFiles/cc_beacon_iface.dir/requires: src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o.requires
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/requires
 
 src/CMakeFiles/cc_beacon_iface.dir/clean:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -P CMakeFiles/cc_beacon_iface.dir/cmake_clean.cmake
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src && $(CMAKE_COMMAND) -P CMakeFiles/cc_beacon_iface.dir/cmake_clean.cmake
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/clean
 
 src/CMakeFiles/cc_beacon_iface.dir/depend:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/juan0fran/Desktop/cc_beacon/cc1101_handler /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/src /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/cubecat/Escritorio/cc_beacon/cc1101_handler /home/cubecat/Escritorio/cc_beacon/cc1101_handler/src /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/depend
 

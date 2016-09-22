@@ -30,30 +30,27 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /opt/local/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler
+CMAKE_SOURCE_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build
+CMAKE_BINARY_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/opt/local/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
+	/usr/bin/cmake -i .
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,7 +60,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/opt/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -72,14 +69,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/progress.marks
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles 0
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src/CMakeFiles/progress.marks
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -88,22 +85,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/CMakeFiles/cc_beacon_iface.dir/rule:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/cc_beacon_iface.dir/rule
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/cc_beacon_iface.dir/rule
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/rule
 
 # Convenience name for target.
@@ -112,7 +109,7 @@ cc_beacon_iface: src/CMakeFiles/cc_beacon_iface.dir/rule
 
 # fast build rule for target.
 cc_beacon_iface/fast:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/build
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/build
 .PHONY : cc_beacon_iface/fast
 
 cc_beacon_iface.o: cc_beacon_iface.c.o
@@ -120,7 +117,7 @@ cc_beacon_iface.o: cc_beacon_iface.c.o
 
 # target to build an object file
 cc_beacon_iface.c.o:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.o
 .PHONY : cc_beacon_iface.c.o
 
 cc_beacon_iface.i: cc_beacon_iface.c.i
@@ -128,7 +125,7 @@ cc_beacon_iface.i: cc_beacon_iface.c.i
 
 # target to preprocess a source file
 cc_beacon_iface.c.i:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.i
 .PHONY : cc_beacon_iface.c.i
 
 cc_beacon_iface.s: cc_beacon_iface.c.s
@@ -136,7 +133,7 @@ cc_beacon_iface.s: cc_beacon_iface.c.s
 
 # target to generate assembly for a file
 cc_beacon_iface.c.s:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/cc_beacon_iface.c.s
 .PHONY : cc_beacon_iface.c.s
 
 # Help Target
@@ -162,6 +159,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

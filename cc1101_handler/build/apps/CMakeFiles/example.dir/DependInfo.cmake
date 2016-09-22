@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/apps/example.c" "/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example.dir/example.c.o"
+  "/home/cubecat/Escritorio/cc_beacon/cc1101_handler/apps/example.c" "/home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example.dir/example.c.o"
   )
-SET(CMAKE_C_COMPILER_ID "Clang")
+SET(CMAKE_C_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  "/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir/DependInfo.cmake"
+  "/home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir/DependInfo.cmake"
   )
 
 # The include file search paths:

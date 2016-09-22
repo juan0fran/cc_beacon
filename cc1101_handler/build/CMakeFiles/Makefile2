@@ -38,22 +38,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /opt/local/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler
+CMAKE_SOURCE_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build
+CMAKE_BINARY_DIR = /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build
 
 #=============================================================================
 # Directory level rules for directory src
@@ -77,7 +74,7 @@ src/preinstall:
 src/CMakeFiles/cc_beacon_iface.dir/all:
 	$(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/depend
 	$(MAKE) -f src/CMakeFiles/cc_beacon_iface.dir/build.make src/CMakeFiles/cc_beacon_iface.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles  1
 	@echo "Built target cc_beacon_iface"
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/all
 
@@ -87,9 +84,9 @@ all: src/CMakeFiles/cc_beacon_iface.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/cc_beacon_iface.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/cc_beacon_iface.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/cc_beacon_iface.dir/rule
 
 # Convenience name for target.
@@ -127,7 +124,7 @@ apps/preinstall:
 apps/CMakeFiles/example.dir/all: src/CMakeFiles/cc_beacon_iface.dir/all
 	$(MAKE) -f apps/CMakeFiles/example.dir/build.make apps/CMakeFiles/example.dir/depend
 	$(MAKE) -f apps/CMakeFiles/example.dir/build.make apps/CMakeFiles/example.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles  2
 	@echo "Built target example"
 .PHONY : apps/CMakeFiles/example.dir/all
 
@@ -137,9 +134,9 @@ all: apps/CMakeFiles/example.dir/all
 
 # Build rule for subdir invocation for target.
 apps/CMakeFiles/example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 apps/CMakeFiles/example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cubecat/Escritorio/cc_beacon/cc1101_handler/build/CMakeFiles 0
 .PHONY : apps/CMakeFiles/example.dir/rule
 
 # Convenience name for target.
