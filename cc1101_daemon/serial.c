@@ -171,7 +171,7 @@ int write_serial(serial_t *serial_parameters, char *msg, int msglen)
     #else
     if (sendto(serial_parameters->sock_fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in)) > 0)
     {
-      ret = sendto(serial_parameters->sock_fd, msg, len, 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in));
+      return (sendto(serial_parameters->sock_fd, msg, len, 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in)));
     }
     else
     {
