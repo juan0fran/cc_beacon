@@ -115,7 +115,7 @@ int openUDPSocket(char * port)
     server = gethostbyname("localhost");
     if (server == NULL)
     {
-        fprintf(stderr,"ERROR, no such host as %s\n", ip);
+        fprintf(stderr,"ERROR, no such host as %s\n", "localhost");
         exit(0);
     }
     serverlen = sizeof(serveraddr);
@@ -169,9 +169,9 @@ int write_serial(serial_t *serial_parameters, char *msg, int msglen)
     #ifdef __USE_SOCAT__
     return write(serial_parameters->sock_fd, msg, len);
     #else
-    if (sendto(serial_parameters->sock_fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in)) > 0)
+    if (sendto(serial_parameters->sock_fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) > 0)
     {
-      return (sendto(serial_parameters->sock_fd, msg, len, 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in)));
+      return (sendto(serial_parameters->sock_fd, msg, len, 0, (struct sockaddr *) &serveraddr, sizeof(serveraddr)));
     }
     else
     {
