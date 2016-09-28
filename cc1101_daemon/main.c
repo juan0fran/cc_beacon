@@ -109,6 +109,7 @@ static struct argp_option options[] = {
     {"tnc-switchover-delay",  304, "SWITCHOVER_DELAY_US", 0, "FUTUR USE: TNC switchover delay in microseconds (default: 0 inactive)"},
     {"gdo0", 'g', "GDO0_PIN", 4, "GDO0 pin from Wiring Pi"},
     {"gdo2", 'i', "GDO2_PIN", 5, "GDO2 pin from Wiring Pi"},
+    {"pac", 'a', "PAC_PIN", 3, "PAC pin from Wiring Pi"},
     {"trx", 'x', "TRX_SELECTOR", 0, "Select from TX (1) or RX (0)"},
     {0}
 };
@@ -193,6 +194,7 @@ static void init_args(arguments_t *arguments)
     arguments->real_time = 0;
     arguments->gdo0 = 4;
     arguments->gdo2 = 5;
+    arguments->pac  = 3;
     arguments->trx  = 0;
 }
 
@@ -488,6 +490,9 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
             break;
         case 'i':
             arguments->gdo2 = strtol(arg, &end, 10);
+            break;
+        case 'a':
+            arguments->pac = strtol(arg, &end, 10);
             break;
         case 'x':
             arguments->trx = strtol(arg, &end, 10);

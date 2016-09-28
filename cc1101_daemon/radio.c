@@ -84,6 +84,8 @@ uint32_t blocks_received;
 uint32_t packets_sent;
 uint32_t packets_received;
 
+static int pac_pin;
+
 // === Static functions declarations ==============================================================
 
 static float    rssi_dbm(uint8_t rssi_dec);
@@ -450,6 +452,8 @@ void init_radio_int(spi_parms_t *spi_parms, arguments_t *arguments)
     {
         wiringPiISR(WPI_GDO2, INT_EDGE_BOTH, &int_threshold); // set interrupt handler for FIFO threshold interrupts
     }
+
+    pac_pin = arguments->pac;
 
     verbprintf(1, "Unit delay .............: %d us\n", radio_int_data.wait_us);
     verbprintf(1, "Packet delay ...........: %d us\n", arguments->packet_delay * radio_int_data.wait_us);
@@ -1233,12 +1237,17 @@ void radio_send_block(spi_parms_t *spi_parms, int block_countdown)
     radio_int_data.bytes_remaining = radio_int_data.tx_count - initial_tx_count;
     blocks_sent = radio_int_data.packet_tx_count;
 
+    /* Enable PAC */
+    digitalWrite(pac_pin, 1);
     PI_CC_SPIStrobe(spi_parms, PI_CCxxx0_STX); // Kick-off Tx
 
     while (blocks_sent == radio_int_data.packet_tx_count)
     {
         radio_wait_a_bit(4);
     }
+    
+    digitalWrite(pac_pin, 0);
+    /* Disable PAC */
 
     verbprintf(1, "Tx: packet #%d:%d\n", radio_int_data.packet_tx_count);
     print_block(4, (uint8_t *) radio_int_data.tx_buf, radio_int_data.tx_count);
