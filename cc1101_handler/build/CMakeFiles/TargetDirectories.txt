@@ -1,9 +1,0 @@
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles/edit_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/CMakeFiles/rebuild_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/edit_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/rebuild_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/src/CMakeFiles/cc_beacon_iface.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example_tx.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/edit_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/rebuild_cache.dir
-/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/build/apps/CMakeFiles/example_rx.dir
