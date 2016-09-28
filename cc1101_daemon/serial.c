@@ -95,12 +95,51 @@ int openUnixSocket(char * sock_path){
     }
     return client_fd;
 }
+static struct sockaddr_in serveraddr;
+
+int openUDPSocket(char * port)
+{
+    int sockfd, portno, n;
+    int serverlen;
+    struct hostent *server;
+    /* socket: create the socket */
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockfd < 0) 
+    {
+        perror("ERROR opening socket");
+        exit(0);
+    }
+
+    /* gethostbyname: get the server's DNS entry */
+    portno = atoi(port);
+    server = gethostbyname("localhost");
+    if (server == NULL)
+    {
+        fprintf(stderr,"ERROR, no such host as %s\n", ip);
+        exit(0);
+    }
+    serverlen = sizeof(serveraddr);
+    /* build the server's Internet address */
+    bzero((char *) &serveraddr, sizeof(serveraddr));
+    serveraddr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, 
+    (char *)&serveraddr.sin_addr.s_addr, server->h_length);
+    serveraddr.sin_port = htons(portno);
+    
+     if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
+     {
+         fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+         /* Address is binded, some is doing */
+     }
+    return sockfd;
+}
 
 void set_serial_parameters(serial_t *serial_parameters, arguments_t *arguments)
 {
     /* socket init */
 //    serial_parameters->sock_fd = openUnixSocket(arguments->serial_device);
       serial_parameters->sock_fd = openTCPSocket("52001");
+      serial_parameters->sock_fd = openUDPSocket("52001");
 }
 
 int check_serial(serial_t *serial_parameters)
@@ -130,10 +169,12 @@ int write_serial(serial_t *serial_parameters, char *msg, int msglen)
     #ifdef __USE_SOCAT__
     return write(serial_parameters->sock_fd, msg, len);
     #else
-    int ret = write(serial_parameters->sock_fd, &len, sizeof(int32_t));
-    if (ret > 0){
-        return write(serial_parameters->sock_fd, msg, len);
-    }else{
+    if (sendto(serial_parameters->sock_fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in)) > 0)
+    {
+      ret = sendto(serial_parameters->sock_fd, msg, len, 0, (struct sockaddr *) &serveraddr, sizeof(sockaddr_in));
+    }
+    else
+    {
         printf("Error writing\n");
         return 0;
     }

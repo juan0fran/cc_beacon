@@ -7,11 +7,21 @@
 #IncludeRegexTransform: 
 
 ../include/cc_beacon_iface.h
+arpa/inet.h
+-
+netinet/in.h
+-
+sys/types.h
+-
+sys/socket.h
+-
 stdint.h
 -
 
-/home/cubecat/Escritorio/cc_beacon/cc1101_handler/apps/example.c
+/Users/juan0fran/Desktop/cc_beacon/cc1101_handler/apps/example.c
 stdio.h
+-
+string.h
 -
 cc_beacon_iface.h
 -

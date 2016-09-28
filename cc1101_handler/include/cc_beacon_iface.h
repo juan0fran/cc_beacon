@@ -5,14 +5,32 @@
 #define BYTE unsigned char
 #endif
 
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+
 #include <stdint.h>
 
+typedef enum MsgSource{
+	PARENT_PROCESS,
+	TRANSMITTER_PROCESS,
+	GPS_PROCESS,
+	AUX_PROCESS,
+}MsgSource;
+
+typedef struct BeaconMessageHandler{
+	int fd;
+	struct sockaddr_in addr;
+	socklen_t len;
+}BeaconMessageHandler;
+
 /* Init functions */
-int 	BeaconConnect (char * sock_file);
-void 	BeaconClose (int fd);
+int 	BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh);
+void 	BeaconClose (BeaconMessageHandler * bmh);
 
 /* Reading functions */
-int 	BeaconWrite (int fd, BYTE * msg, int32_t len);
-int 	BeaconRead (int fd, BYTE * msg, int32_t maxbuflen);
+int 	BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource m);
+int 	BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSource * m); /* returns the source if wanted */
 
 #endif

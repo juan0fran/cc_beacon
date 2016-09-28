@@ -13,12 +13,56 @@
 
 #include <cc_beacon_iface.h>
 
-static int InitClientSocket(char * sock_file)
+static int InitClientSocket(const char * ip, const char * port, BeaconMessageHandler * bmh)
+{
+    int sockfd, portno, n;
+    int serverlen;
+    struct sockaddr_in serveraddr;
+    struct hostent *server;
+    /* socket: create the socket */
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockfd < 0) 
+    {
+        perror("ERROR opening socket");
+        exit(0);
+    }
+
+    /* gethostbyname: get the server's DNS entry */
+    portno = atoi(port);
+    server = gethostbyname(ip);
+    if (server == NULL)
+    {
+        fprintf(stderr,"ERROR, no such host as %s\n", ip);
+        exit(0);
+    }
+	serverlen = sizeof(serveraddr);
+    /* build the server's Internet address */
+    bzero((char *) &serveraddr, sizeof(serveraddr));
+    serveraddr.sin_family = AF_INET;
+    bcopy((char *)server->h_addr, 
+	  (char *)&serveraddr.sin_addr.s_addr, server->h_length);
+    serveraddr.sin_port = htons(portno);
+    
+     if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
+     {
+         fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+         /* Address is binded, some is doing */
+     }
+
+
+    bmh->fd = sockfd;
+    bmh->addr = serveraddr;
+    bmh->len = serverlen;
+
+    return sockfd;
+}
+#if 0
+static int InitClientSocket(const char * ip, const char * port)
 {
 	int fd;
 	struct sockaddr_un addr;
 
-	if ( (fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+	if ( (fd = socket(AF_INES, SOCK_DGRAM, 0)) == -1) {
 		perror("socket error");
 		exit(-1);
 	}
@@ -34,40 +78,49 @@ static int InitClientSocket(char * sock_file)
 
 	return fd;
 }
-
-int BeaconConnect (char * sock_file)
+#endif
+int BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh)
 {
-	return InitClientSocket(sock_file);
+	return InitClientSocket(ip, port, bmh);
 }
 
-void BeaconClose (int fd)
+void BeaconClose (BeaconMessageHandler * bmh)
 {
-	close (fd);
+	close (bmh->fd);		
 }
 
 /* Just to ensure is a 32 bits int -> int32_t */
-int BeaconWrite (int fd, BYTE * msg, int32_t len)
+int BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource m)
 {
 	int ret = -1;
 	/* if write returns -1, error */
-	if (write(fd, &len, sizeof(int32_t)) > 0){
-		ret = write(fd, msg, len);
+
+	if (sendto(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, bmh->len) > 0)
+	{
+		ret = sendto(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, bmh->len);
 	}
 	return ret;
 }
 
-
-int BeaconRead (int fd, BYTE * msg, int32_t maxbuflen)
+/* */
+int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSource * m)
 {
 	int len = 0;
-	int ret;
+	int ret = 0;
 	/* blocking read waiting for a beacon */
-	if (read(fd, &len, sizeof(int32_t)) > 0 ){
+	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
+	{
+		ret = recvfrom(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, &bmh->len);
+	}
+	return ret;
+
+	#if 0
+	if (read(bmh->fd, &len, sizeof(int32_t)) > 0 ){
 		if (len <= maxbuflen){
-			ret = read(fd, msg, len);
+			ret = read(bmh->fd, msg, len);
 			/* ensure the whole message has been readed */
 			while (ret != len){
-				ret += read(fd, msg+ret, len-ret);
+				ret += read(bmh->fd, msg+ret, len-ret);
 			}
 			return len;
 		}else{
@@ -77,6 +130,7 @@ int BeaconRead (int fd, BYTE * msg, int32_t maxbuflen)
 		/* End of socket */
 		return -1;
 	}
+	#endif
 }
 
 
