@@ -103,11 +103,14 @@ void BeaconClose (BeaconMessageHandler * bmh)
 int BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource m)
 {
 	int ret = -1;
+	BYTE buffer[len + 1];
 	/* if write returns -1, error */
-
-	if (sendto(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, bmh->len) > 0)
+	int32_t send_len = len + 1;
+	buffer[0] = (BYTE) m;
+	memcpy(buffer+1, msg, len);
+	if (sendto(bmh->fd, &send_len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, bmh->len) > 0)
 	{
-		ret = sendto(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, bmh->len);
+		ret = sendto(bmh->fd, buffer, send_len, 0, (struct sockaddr *) &bmh->addr, bmh->len);
 	}
 	return ret;
 }
@@ -115,15 +118,20 @@ int BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource 
 /* */
 int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSource * m)
 {
+	BYTE buffer[maxbuflen];
 	int len = 0;
 	int ret = 0;
 	/* blocking read waiting for a beacon */
 	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
 	{
-		ret = recvfrom(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, &bmh->len);
+		ret = recvfrom(bmh->fd, buffer, len, 0, (struct sockaddr *) &bmh->addr, &bmh->len);
+		*m = (MsgSource) buffer[0];
+		memcpy(msg, buffer+1, len - 1);
 	}
-	return ret;
-
+	if (len == ret)
+		return ret - 1;
+	else
+		return 0;
 	#if 0
 	if (read(bmh->fd, &len, sizeof(int32_t)) > 0 ){
 		if (len <= maxbuflen){
