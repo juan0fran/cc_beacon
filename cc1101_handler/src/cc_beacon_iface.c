@@ -42,12 +42,18 @@ static int InitClientSocket(const char * ip, const char * port, BeaconMessageHan
     bcopy((char *)server->h_addr, 
 	  (char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
-    
-     if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
-     {
-         fprintf(stderr, "bind failed [%s]\n", strerror(errno));
-         /* Address is binded, some is doing */
-     }
+	
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
+	{
+		fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
+		exit(0);		
+	}
+
+	if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
+	{
+		fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+		exit(0);
+	}
 
 
     bmh->fd = sockfd;
@@ -108,13 +114,9 @@ int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSo
 	int len = 0;
 	int ret = 0;
 	/* blocking read waiting for a beacon */
-	/*if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
+	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
 	{
 		ret = recvfrom(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, &bmh->len);
-	}*/
-	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, NULL, NULL) > 0 )
-	{
-		ret = recvfrom(bmh->fd, msg, len, 0, NULL, NULL);
 	}
 	return ret;
 
