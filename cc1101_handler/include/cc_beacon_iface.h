@@ -13,10 +13,9 @@
 #include <stdint.h>
 
 typedef enum MsgSource{
-	PARENT_PROCESS,
-	TRANSMITTER_PROCESS,
-	GPS_PROCESS,
-	AUX_PROCESS,
+	VITOW,
+	GPS_TEMP,
+	SYSTEM,
 }MsgSource;
 
 typedef enum MessagePurpose{
