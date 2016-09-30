@@ -103,7 +103,7 @@ void BeaconClose (BeaconMessageHandler * bmh)
 int BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource m)
 {
 	int ret = -1;
-	BYTE buffer[len + 1];
+	BYTE buffer[500];
 	/* if write returns -1, error */
 	int32_t send_len = len + 1;
 	buffer[0] = (BYTE) m;
@@ -118,7 +118,7 @@ int BeaconWrite (BeaconMessageHandler * bmh, BYTE * msg, int32_t len, MsgSource 
 /* */
 int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSource * m)
 {
-	BYTE buffer[maxbuflen];
+	BYTE buffer[500];
 	int len = 0;
 	int ret = 0;
 	/* blocking read waiting for a beacon */

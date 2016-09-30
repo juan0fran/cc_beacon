@@ -9,7 +9,7 @@ int main (void)
 	BYTE buff[100];
 	strcpy((char *) buff, "HOLAHOLA");
 	BeaconMessageHandler b;
-	MsgSource m = PARENT_PROCESS;
+	MsgSource m = SYSTEM;
 	int fd = BeaconConnect("localhost", "52001", &b, beacon_receiver);
 	while(1)
 	{
