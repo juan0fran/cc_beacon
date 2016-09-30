@@ -101,6 +101,7 @@ int openUDPSocket(char * port)
 {
     int sockfd, portno, n;
     int serverlen;
+    int set_option_on = 1;
     struct hostent *server;
     /* socket: create the socket */
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
