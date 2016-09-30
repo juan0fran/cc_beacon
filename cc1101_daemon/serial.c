@@ -97,7 +97,7 @@ int openUnixSocket(char * sock_path){
 }
 static struct sockaddr_in serveraddr;
 
-int openUDPSocket(char * port)
+int openUDPSocket(char * port, int trx)
 {
     int sockfd, portno, n;
     int serverlen;
@@ -126,15 +126,21 @@ int openUDPSocket(char * port)
     bcopy((char *)server->h_addr, 
     (char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
+
+    /* meaning 0 as we will RX from air and forward (sendto) */
+    /* meaning 1 as we will TX to air and recv from udp (recvfrom) */
+    if (trx == 1)
     {
-      fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
-      exit(0);    
-    }
-    if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
-    {
-       fprintf(stderr, "bind failed [%s]\n", strerror(errno));
-       /* Address is binded, some is doing */
+      if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
+      {
+        fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
+        exit(0);    
+      }
+      if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
+      {
+         fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+         /* Address is binded, some is doing */
+      }
     }
     return sockfd;
 }
@@ -144,7 +150,8 @@ void set_serial_parameters(serial_t *serial_parameters, arguments_t *arguments)
     /* socket init */
 //    serial_parameters->sock_fd = openUnixSocket(arguments->serial_device);
 //      serial_parameters->sock_fd = openTCPSocket("52001");
-      serial_parameters->sock_fd = openUDPSocket("52001");
+      /* set the intention, to rx or to tx */
+      serial_parameters->sock_fd = openUDPSocket("52001", arguments->trx);
 }
 
 int check_serial(serial_t *serial_parameters)

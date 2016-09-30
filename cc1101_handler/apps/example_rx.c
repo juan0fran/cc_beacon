@@ -10,7 +10,7 @@ int main (void)
 	strcpy((char *) buff, "HOLAHOLA");
 	BeaconMessageHandler b;
 	MsgSource m = PARENT_PROCESS;
-	int fd = BeaconConnect("localhost", "52001", &b);
+	int fd = BeaconConnect("localhost", "52001", &b, beacon_sender);
 	while(1)
 	{
 		BeaconRead(&b, buff, 100, &m);

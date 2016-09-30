@@ -13,7 +13,7 @@
 
 #include <cc_beacon_iface.h>
 
-static int InitClientSocket(const char * ip, const char * port, BeaconMessageHandler * bmh)
+static int InitClientSocket(const char * ip, const char * port, BeaconMessageHandler * bmh, MessagePurpose trx)
 {
     int sockfd, portno, n;
     int serverlen;
@@ -44,18 +44,21 @@ static int InitClientSocket(const char * ip, const char * port, BeaconMessageHan
 	  (char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
 	
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
+	/* if we have to send beacons, we have to receive beacons, we create the socket and take a bind on it */
+	if (trx == beacon_receiver)
 	{
-		fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
-		exit(0);		
-	}
+		if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
+		{
+			fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
+			exit(0);		
+		}
 
-	if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
-	{
-		fprintf(stderr, "bind failed [%s]\n", strerror(errno));
-		exit(0);
+		if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
+		{
+			fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+			exit(0);
+		}
 	}
-
 
     bmh->fd = sockfd;
     bmh->addr = serveraddr;
@@ -86,9 +89,9 @@ static int InitClientSocket(const char * ip, const char * port)
 	return fd;
 }
 #endif
-int BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh)
+int BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh, MessagePurpose trx)
 {
-	return InitClientSocket(ip, port, bmh);
+	return InitClientSocket(ip, port, bmh, trx);
 }
 
 void BeaconClose (BeaconMessageHandler * bmh)

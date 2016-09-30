@@ -19,6 +19,11 @@ typedef enum MsgSource{
 	AUX_PROCESS,
 }MsgSource;
 
+typedef enum MessagePurpose{
+	beacon_sender,
+	beacon_receiver,
+}MessagePurpose;
+
 typedef struct BeaconMessageHandler{
 	int fd;
 	struct sockaddr_in addr;
@@ -26,7 +31,7 @@ typedef struct BeaconMessageHandler{
 }BeaconMessageHandler;
 
 /* Init functions */
-int 	BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh);
+int 	BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bmh, MessagePurpose trx);
 void 	BeaconClose (BeaconMessageHandler * bmh);
 
 /* Reading functions */
