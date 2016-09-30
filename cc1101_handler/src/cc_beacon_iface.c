@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <netinet/in.h>
-#include <netdb.h> 
+#include <netdb.h>
 #include <poll.h>
 #include <stdlib.h>
 
@@ -22,10 +22,10 @@ static int InitClientSocket(const char * ip, const char * port, BeaconMessageHan
     struct hostent *server;
     /* socket: create the socket */
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sockfd < 0) 
+    if (sockfd < 0)
     {
-        perror("ERROR opening socket");
-        exit(0);
+        // perror("ERROR opening socket");
+        return -1;
     }
 
     /* gethostbyname: get the server's DNS entry */
@@ -33,30 +33,30 @@ static int InitClientSocket(const char * ip, const char * port, BeaconMessageHan
     server = gethostbyname(ip);
     if (server == NULL)
     {
-        fprintf(stderr,"ERROR, no such host as %s\n", ip);
-        exit(0);
+        // fprintf(stderr,"ERROR, no such host as %s\n", ip);
+        return -1;
     }
 	serverlen = sizeof(serveraddr);
     /* build the server's Internet address */
     bzero((char *) &serveraddr, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, 
+    bcopy((char *)server->h_addr,
 	  (char *)&serveraddr.sin_addr.s_addr, server->h_length);
     serveraddr.sin_port = htons(portno);
-	
+
 	/* if we have to send beacons, we have to receive beacons, we create the socket and take a bind on it */
 	if (trx == beacon_receiver)
 	{
 		if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char*) &set_option_on, sizeof(set_option_on)) != 0)
 		{
-			fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
-			exit(0);		
+			// fprintf(stderr, "set sockopt failed [%s]\n", strerror(errno));
+			return -1;
 		}
 
 		if (bind(sockfd, (struct sockaddr *)&serveraddr, serverlen) != 0)
 		{
-			fprintf(stderr, "bind failed [%s]\n", strerror(errno));
-			exit(0);
+			// fprintf(stderr, "bind failed [%s]\n", strerror(errno));
+			return -1;
 		}
 	}
 
@@ -96,7 +96,7 @@ int BeaconConnect (const char * ip, const char * port, BeaconMessageHandler * bm
 
 void BeaconClose (BeaconMessageHandler * bmh)
 {
-	close (bmh->fd);		
+	close (bmh->fd);
 }
 
 /* Just to ensure is a 32 bits int -> int32_t */
@@ -150,22 +150,3 @@ int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSo
 	}
 	#endif
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
