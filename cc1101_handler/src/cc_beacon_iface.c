@@ -108,9 +108,13 @@ int BeaconRead (BeaconMessageHandler * bmh, BYTE * msg, int32_t maxbuflen, MsgSo
 	int len = 0;
 	int ret = 0;
 	/* blocking read waiting for a beacon */
-	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
+	/*if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, (struct sockaddr *) &bmh->addr, &bmh->len) > 0 )
 	{
 		ret = recvfrom(bmh->fd, msg, len, 0, (struct sockaddr *) &bmh->addr, &bmh->len);
+	}*/
+	if (recvfrom(bmh->fd, &len, sizeof(int32_t), 0, NULL, NULL) > 0 )
+	{
+		ret = recvfrom(bmh->fd, msg, len, 0, NULL, NULL);
 	}
 	return ret;
 
