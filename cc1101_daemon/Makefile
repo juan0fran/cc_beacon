@@ -5,7 +5,6 @@ all: picc1101
 clean:
 	rm -f *.o picc1101
 	 
-
 picc1101: main.o serial.o pi_cc_spi.o radio.o kiss.o util.o test.o
 	$(CCPREFIX)gcc $(LDFLAGS) -s -lm -lwiringPi -o picc1101 main.o serial.o pi_cc_spi.o radio.o kiss.o util.o test.o
 
@@ -29,3 +28,14 @@ test.o: test.h test.c
 
 util.o: util.h util.c
 	$(CCPREFIX)gcc $(CFLAGS) $(EXTRA_CFLAGS) -c -o util.o util.c
+
+install:
+	@echo "--> Copying picc1101 to usr/bin"
+	@cp picc1101 /usr/bin/picc1101
+	@echo "--> Done."
+	@echo "--> Copying tx sh to /usr/bin"
+	@cp cc1101_tx_process.sh /usr/bin/cc1101_tx_process.sh
+	@echo "--> Done."
+	@echo "--> Copying rx sh to /usr/bin"
+	@cp cc1101_rx_process.sh /usr/bin/cc1101_rx_process.sh
+	@echo "--> Done."	
