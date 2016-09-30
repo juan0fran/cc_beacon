@@ -17,6 +17,7 @@ static int InitClientSocket(const char * ip, const char * port, BeaconMessageHan
 {
     int sockfd, portno, n;
     int serverlen;
+    int set_option_on = 1;
     struct sockaddr_in serveraddr;
     struct hostent *server;
     /* socket: create the socket */
