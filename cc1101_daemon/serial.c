@@ -138,7 +138,7 @@ void set_serial_parameters(serial_t *serial_parameters, arguments_t *arguments)
 {
     /* socket init */
 //    serial_parameters->sock_fd = openUnixSocket(arguments->serial_device);
-      serial_parameters->sock_fd = openTCPSocket("52001");
+//      serial_parameters->sock_fd = openTCPSocket("52001");
       serial_parameters->sock_fd = openUDPSocket("52001");
 }
 
