@@ -216,10 +216,25 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
     radio_init_rx(spi_parms, arguments); // init for new packet to receive Rx
     radio_turn_rx(spi_parms);            // Turn Rx on
 
+    gettimeofday(&tp, NULL);
+    timestamp = tp.tv_sec * 1000000ULL + tp.tv_usec;
+
 #if 1
     while(1)
     {
         if (arguments->trx == 0){
+            gettimeofday(&tp, NULL);
+            timeout_value = (tp.tv_sec * 1000000ULL + tp.tv_usec) - timestamp;
+            if (timeout_value > (10 * 1000 * 1000))
+            {
+                radio_wait_free();            // Make sure no radio operation is in progress
+                radio_turn_idle(spi_parms);   // Inhibit radio operations (should be superfluous since both Tx and Rx turn to IDLE after a packet has been processed)
+                radio_flush_fifos(spi_parms); // Flush result of any Rx activity
+                radio_init_rx(spi_parms, arguments); // Init for new packet to receive Rx
+                radio_turn_rx(spi_parms);     
+                verbprintf(0, "Resetting after many seconds without recv\n");
+                timestamp = tp.tv_sec * 1000000ULL + tp.tv_usec;
+            }
             rx_count = radio_receive_packet(spi_parms, arguments, &rx_buffer[0]); // check if anything was received on radio link
             /* poll the serial device to remove garbage and check for end of pipe */
             if (check_serial(serial_parms) <= 0){
@@ -231,6 +246,7 @@ void kiss_run(serial_t *serial_parms, spi_parms_t *spi_parms, arguments_t *argum
             }
             if (rx_count > 0) // Send bytes received on air to serial
             {
+                timestamp = tp.tv_sec * 1000000ULL + tp.tv_usec;
                 radio_init_rx(spi_parms, arguments); // Init for new packet to receive Rx
                 radio_turn_rx(spi_parms);   
                 verbprintf(2, "Received %d bytes\n", rx_count);
